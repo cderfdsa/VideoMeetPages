@@ -6,6 +6,7 @@
 	<title>创建新事项</title>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="css/animate.css">
 	<style>
 		.nav-bar{
 			height:60px;
@@ -24,6 +25,8 @@
 		}
 		.partner{
 			color:rgb(19, 34, 122);
+			animation-timing-function:linear;
+			animation-iteration-count: infinite;
 		}
 		.add{
 			color:rgb(26, 250, 41);
@@ -35,6 +38,7 @@
 			display:none;
 			color:rgb(26, 250, 41);
 		}
+
 		
 		
 		
@@ -65,17 +69,17 @@
 						<p>我</p>
 					</div>
 					<div class="partner-list">
-						<div class="partner col-xs-3 text-center center-block" id="partner">
+						<div class="partner col-xs-3 text-center center-block animated" id="partner">
 							<div class="do-delete"></div>
 							<img src="image/partner.png" alt="" class="partner-head">
 							<p>A</p>
 						</div>
-						<div class="partner col-xs-3 text-center center-block" id="partner">
+						<div class="partner col-xs-3 text-center center-block animated" id="partner">
 							<div class="do-delete"></div>
 							<img src="image/partner.png" alt="" class="partner-head">
 							<p>B</p>
 						</div>
-						<div class="partner col-xs-3 text-center center-block" id="partner">
+						<div class="partner col-xs-3 text-center center-block animated" id="partner">
 							<div class="do-delete"></div>
 							<img src="image/partner.png" alt="" class="partner-head">
 							<p>C</p>
@@ -122,12 +126,13 @@
 		return parseInt($('#partner-num span').html());
 	}
 	$('.add').click(function(){
-		$('.partner-list').append('<div class="partner col-xs-3 text-center center-block" id="partner"><div class="do-delete"></div><img src="image/partner.png" alt="" class="partner-head"><p>其他人</p></div>');
+		$('.partner-list').append('<div class="partner col-xs-3 text-center center-block animated" id="partner"><div class="do-delete"></div><img src="image/partner.png" alt="" class="partner-head"><p>其他人</p></div>');
 		$('#partner-num span').html(getPatnerNumber()+1);
 	
 	});
 	$('.delete').click(function(){
 		delSwitch=true;
+		$('.partner').addClass('swing');
 		$(this).hide();
 		$('.add').hide();
 		$('.complete').show();
@@ -137,6 +142,7 @@
 	});
 	$('.complete').click(function(){
 		delSwitch=false;
+		$('.partner').removeClass('swing');
 		$('.do-delete').hide();
 		$(this).hide();
 		$('.add').show();
