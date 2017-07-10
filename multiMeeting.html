@@ -38,51 +38,8 @@
 			</ul>		
 		</div>
 		<div class="list-container">
-			<div class="list list-1 text-left animated">
-				<div class="item">
-					<a href="meetingDetails.html">
-						<div class="item-time"><b>Apr. 16 08:30 AM</b></div>
-						<div class="item-theme">会议主题:啦啦啦</div>
-						<div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;219
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="meetingDetails.html">
-						<div class="item-time"><b>Apr. 16 08:30 AM</b></div>
-						<div class="item-theme">会议主题:啦啦啦</div>
-						<div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;219
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="meetingDetails.html">
-						<div class="item-time"><b>Apr. 16 08:30 AM</b></div>
-						<div class="item-theme">会议主题:啦啦啦</div>
-						<div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;219
-						</div>
-					</a>
-				</div>
-				
-			</div>
-			<div class="list list-2 text-left animated">
-				<div class="item">
-					<a href="meetingDetails.html">
-						<div class="item-time"><b>Apr. 16 08:30 AM</b></div>
-						<div class="item-theme">会议主题:啦啦啦</div>
-						<div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;219
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="meetingDetails.html">
-						<div class="item-time"><b>Apr. 16 08:30 AM</b></div>
-						<div class="item-theme">会议主题:啦啦啦</div>
-						<div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;219
-						</div>
-					</a>
-				</div>
-			</div>
+			<div class="list list-1 text-left animated"></div>
+			<div class="list list-2 text-left animated"></div>
 		</div>
 		<div class="add hidden-md hidden-lg"><a href="createMeeting.html"><img src="image/add-2.png" alt=""></a></div>
 
@@ -95,7 +52,6 @@
 			<li><a href="">5</a></li>
 			<li><a href="">&raquo;</a></li>
 		</ul>	
-
 	</div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
@@ -103,11 +59,28 @@
 <script src="js/dropload.min.js"></script>
 <script src="js/main.js"></script>
 <script>
+	var obj=$.get('mutilMeeting.txt',function(data){
+		var obj=JSON.parse(data);
+		var itemIndex=0;
+		var meetId=obj.videoMeetInfoList[itemIndex].meetId;
+		var meetTheme=obj.videoMeetInfoList[itemIndex].meetSubject;
+		var meetDatetime=obj.videoMeetInfoList[itemIndex].meetDatetime;
+		for(;itemIndex<6;itemIndex++){
+			result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>'+meetDatetime+'</b></div><div class="item-theme">会议主题:'+meetTheme+'</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;'+meetId+'</div></a></div>';
+			$('.list-1').append(result);
+			$('.list-2').append(result);
+		}
+		return obj;
+	});
+
+	
+
 	//下拉刷新，上拉加载事件对象
 	var droploadDownObj={
 		scrollArea:window,
 		loadUpFn:function(me){
-			result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>Apr. 16 08:30 AM</b></div><div class="item-theme">会议主题:啦啦啦</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;219</div></a></div>';
+			itemIndex++;
+			result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>'+meetDatetime+'</b></div><div class="item-theme">会议主题:'+meetTheme+'</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;'+meetId+'</div></a></div>';
 	        setTimeout(function() {
 	            $('.list').eq(currentIndex).append(result);
 	            me.resetload();
@@ -115,7 +88,8 @@
 	        scrollToEnd();
 		},
 		loadDownFn:function(me){
-			result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>Apr. 16 08:30 AM</b></div><div class="item-theme">会议主题:啦啦啦</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;219</div></a></div>';
+			itemIndex++;
+			result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>'+meetDatetime+'</b></div><div class="item-theme">会议主题:'+meetTheme+'</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;'+meetId+'</div></a></div>';
 	        setTimeout(function() {
 	            $('.list').eq(currentIndex).append(result);
 	            me.resetload();
@@ -126,6 +100,8 @@
 
 	$('.list-1').dropload(droploadDownObj);
 	$('.list-2').dropload(droploadDownObj);
+
+	
 
 </script>
 </html>
