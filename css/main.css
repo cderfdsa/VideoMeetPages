@@ -35,12 +35,10 @@ li.pc-tab.selected{
 	background-color:rgb(51, 122, 183); 
 }
 .list{
-			display:none;
-			color:rgb(133, 133, 133);
-			font-size:12px;
-			cursor: pointer;
-		}
-
+	display:none;
+	font-size:12px;
+	cursor: pointer;
+}
 .item{
 	height:70px;
 	padding:5px 10px;
@@ -52,6 +50,9 @@ li.pc-tab.selected{
 }
 .item:hover{
 	background-color: rgb(234,234,234);
+}
+.item a{
+	color:rgb(133, 133, 133);
 }
 .add{
 	position:fixed;
