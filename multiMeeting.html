@@ -59,9 +59,9 @@
 <script src="js/dropload.min.js"></script>
 <script src="js/main.js"></script>
 <script>
-	var obj=$.get('mutilMeeting.txt',function(data){
+	var itemIndex=0;
+	$.get('mutilMeeting.txt',function(data){
 		var obj=JSON.parse(data);
-		var itemIndex=0;
 		var meetId=obj.videoMeetInfoList[itemIndex].meetId;
 		var meetTheme=obj.videoMeetInfoList[itemIndex].meetSubject;
 		var meetDatetime=obj.videoMeetInfoList[itemIndex].meetDatetime;
@@ -70,31 +70,39 @@
 			$('.list-1').append(result);
 			$('.list-2').append(result);
 		}
-		return obj;
 	});
-
 	
-
 	//下拉刷新，上拉加载事件对象
 	var droploadDownObj={
 		scrollArea:window,
 		loadUpFn:function(me){
-			itemIndex++;
-			result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>'+meetDatetime+'</b></div><div class="item-theme">会议主题:'+meetTheme+'</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;'+meetId+'</div></a></div>';
-	        setTimeout(function() {
-	            $('.list').eq(currentIndex).append(result);
-	            me.resetload();
-	        }, 1000);
-	        scrollToEnd();
+			$.get('mutilMeeting.txt',function(data){
+				var obj=JSON.parse(data);
+				itemIndex++;
+				if(itemIndex<obj.videoMeetInfoList.length){
+					result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>'+obj.videoMeetInfoList[itemIndex].meetDatetime+'</b></div><div class="item-theme">会议主题:'+obj.videoMeetInfoList[itemIndex].meetSubject+'</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;'+obj.videoMeetInfoList[itemIndex].meetId;+'</div></a></div>';
+				        setTimeout(function() {
+			            $('.list').eq(currentIndex).append(result);
+			            me.resetload();
+			        }, 1000);
+			        scrollToEnd();
+		        }
+			});
+			
 		},
 		loadDownFn:function(me){
-			itemIndex++;
-			result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>'+meetDatetime+'</b></div><div class="item-theme">会议主题:'+meetTheme+'</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;'+meetId+'</div></a></div>';
-	        setTimeout(function() {
-	            $('.list').eq(currentIndex).append(result);
-	            me.resetload();
-	        }, 1000);
-	        scrollToEnd();
+			$.get('mutilMeeting.txt',function(data){
+				var obj=JSON.parse(data);
+				itemIndex++;
+				if(itemIndex<obj.videoMeetInfoList.length){
+					result = '<div class="item"><a href="meetingDetails.html"><div class="item-time"><b>'+obj.videoMeetInfoList[itemIndex].meetDatetime+'</b></div><div class="item-theme">会议主题:'+obj.videoMeetInfoList[itemIndex].meetSubject+'</div><div class="item-id">会议ID&nbsp;&nbsp;&nbsp;&nbsp;'+obj.videoMeetInfoList[itemIndex].meetId;+'</div></a></div>';
+				        setTimeout(function() {
+			            $('.list').eq(currentIndex).append(result);
+			            me.resetload();
+			        }, 1000);
+			        scrollToEnd();
+		        }
+			});
 		}
 	};
 
